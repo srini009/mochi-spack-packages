@@ -34,6 +34,7 @@ class MochiSdskv(AutotoolsPackage):
 
     version('dev-bedrock', branch='dev-bedrock');
     version('develop', branch='main')
+    version('develop-test', branch='master', git='https://github.com/srini009/sds-keyval.git')
     version('main', branch='main')
     version('0.1.14', sha256='0e6aafadd29d93d1828672f30242ba35b77cc44e9c7c6f6b74083d582efab80d')
     version('0.1.13', sha256='998ea87656ee8af135a8ad154b8226464f4ffa46f9a1638c7a6b5a1456320a90')
@@ -52,6 +53,9 @@ class MochiSdskv(AutotoolsPackage):
     version('0.1.1', tag='v0.1.1')
     version('0.1', tag='v0.1')
 
+    #Custom SYMBIOMON-related variants
+    variant('aggrservice', default=False, description='Compiles an MPI-based SDSKV aggr service')
+    variant('symbiomon', default=False, description="Enables remote metrics monitoring")
     variant('benchmark', default=False, description='Compiles a benchmark')
     variant('remi', default=False, description="Enables migration support using REMI")
     variant('bdb', default=True, description="Enable Berkely DB keyval backend")
@@ -59,11 +63,13 @@ class MochiSdskv(AutotoolsPackage):
     variant('lmdb', default=False, description="Enable lmdb keyval backend")
     variant('bedrock', default=True, description="Enable bedrock (Mochi loader)")
 
+    depends_on('mochi-symbiomon@develop', when='+symbiomon @develop')
     depends_on('autoconf@2.65:')
     depends_on('automake@1.13.4:')
     depends_on('libtool', type=("build"))
     depends_on('jsoncpp@1.9.1:')
     depends_on('mpi', when='+benchmark')
+    depends_on('mpi', when='+aggrservice @develop')
     depends_on('mochi-margo@0.4:', when='@:0.1.3')
     depends_on('mochi-margo@0.5.2:', when='@0.1.4:')
     depends_on('mochi-abt-io', when='@:0.1.11')
@@ -96,12 +102,20 @@ class MochiSdskv(AutotoolsPackage):
             extra_args.extend([
                 "--enable-leveldb"
                 ])
-
+        if '+symbiomon' in spec:
+            extra_args.extend([
+                "--enable-symbiomon"
+                ])
         if '+benchmark' in spec:
             extra_args.append('--enable-benchmark')
             extra_args.append('CXX=%s' % spec['mpi'].mpicxx)
         else:
             extra_args.append('--disable-benchmark')
+        if '+aggrservice' in spec:
+            extra_args.append('--enable-aggr-service')
+            extra_args.append('CXX=%s' % spec['mpi'].mpicxx)
+        else:
+            extra_args.append('--disable-aggr-service')
 
         if spec.satisfies('@0.1.4:'):
             if '+remi' in spec:
