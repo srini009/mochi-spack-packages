@@ -35,7 +35,7 @@ class MochiSdskv(AutotoolsPackage):
 
     version('dev-bedrock', branch='dev-bedrock');
     version('develop', branch='main')
-    version('develop-test', branch='master', git='https://github.com/srini009/sds-keyval.git')
+    version('experimental', branch='main', git='https://github.com/srini009/mochi-sdskv.git')
     version('main', branch='main')
     version('0.1.14', sha256='0e6aafadd29d93d1828672f30242ba35b77cc44e9c7c6f6b74083d582efab80d')
     version('0.1.13', sha256='998ea87656ee8af135a8ad154b8226464f4ffa46f9a1638c7a6b5a1456320a90')
@@ -65,13 +65,13 @@ class MochiSdskv(AutotoolsPackage):
     variant('bedrock', default=True, description="Enable bedrock (Mochi loader)")
 
     depends_on('pkgconfig')
-    depends_on('mochi-symbiomon@develop', when='+symbiomon @develop-test')
+    depends_on('mochi-symbiomon@develop', when='+symbiomon @experimental')
     depends_on('autoconf@2.65:')
     depends_on('automake@1.13.4:')
     depends_on('libtool', type=("build"))
     depends_on('jsoncpp@1.9.1:')
     depends_on('mpi', when='+benchmark')
-    depends_on('mpi', when='+aggrservice @develop-test')
+    depends_on('mpi', when='+aggrservice @experimental')
     depends_on('mochi-margo@0.4:', when='@:0.1.3')
     depends_on('mochi-margo@0.5.2:', when='@0.1.4:')
     depends_on('mochi-abt-io', when='@:0.1.11')
@@ -82,10 +82,10 @@ class MochiSdskv(AutotoolsPackage):
 
     # dependencies for develop version
     depends_on('mochi-margo@develop', when='@develop')
-    depends_on('mochi-remi@0.3.2', when='+remi @develop')
-    depends_on('mochi-bedrock@develop', when="+bedrock @develop")
-    depends_on('mochi-margo@develop', when='@develop-test')
-    depends_on('mochi-bedrock@develop', when="+bedrock @develop-test")
+    depends_on('mochi-remi@develop', when='+remi @develop')
+    depends_on('mochi-bedrock@0.3:', when="+bedrock @experimental")
+    #depends_on('mochi-bedrock@develop', when="+bedrock @develop")
+    depends_on('mochi-margo@experimental +pvar', when='@experimental')
 
     # variable dependencies
     depends_on('berkeley-db @18.1.40:', when="+bdb")
