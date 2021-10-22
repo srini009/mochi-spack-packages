@@ -17,13 +17,13 @@ class MochiSymbiomon(CMakePackage):
     variant('bedrock', default=False, description='Enable building of the bedrock module')
 
     depends_on('libuuid')
-    depends_on('mochi-margo@develop')
+    depends_on('mochi-margo@experimental +pvar')
     depends_on('mercury@master')
     #depends_on('argobots@main')
     depends_on('argobots@1.0:')
-    depends_on('mochi-sdskv@develop-test', when='+aggregator')
+    depends_on('mochi-sdskv@experimental', when='+aggregator')
     depends_on('mochi-abt-io@develop')
-    depends_on('mochi-bedrock@develop', when='+bedrock')
+    depends_on('mochi-bedrock@0.3:', when='+bedrock')
     depends_on('mochi-reducer@develop', when='+reducer')
 
     def cmake_args(self):
