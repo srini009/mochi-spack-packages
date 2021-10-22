@@ -45,7 +45,7 @@ class MochiMargo(AutotoolsPackage):
     version('0.4.4', sha256='2e2e6e2a8a7d7385e2fe204c113cb149f30847f0b1f48ec8dd708a74280bd89e')
     version('0.4.3', sha256='61a634d6983bee2ffa06e1e2da4c541cb8f56ddd9dd9f8e04e8044fb38657475')
     version('0.4.2', sha256='91085e28f50e373b9616e1ae5c3c8d40a19a7d3776259592d8f361766890bcaa')
-    version('develop-test', git='https://github.com/srini009/mochi-margo.git', branch='develop-test')
+    version('develop-test', git='https://github.com/srini009/mochi-margo.git', branch='experimental')
 
     variant('pvar', default=False, description="extract performance data from Mercury")
 
