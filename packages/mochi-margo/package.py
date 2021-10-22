@@ -59,6 +59,7 @@ class MochiMargo(AutotoolsPackage):
     depends_on('argobots@1.0:')
     # "breadcrumb" support not available in mercury-1.0
     depends_on('mercury@develop', when='@develop-test')
+    depends_on('mercury@develop', when='@develop-test +pvar')
     depends_on('mercury@1.0.0:', type=("build", "link", "run"), when='@:0.5.1')
     depends_on('mercury@2.0.0:', type=("build", "link", "run"), when='@0.5.2:')
 
