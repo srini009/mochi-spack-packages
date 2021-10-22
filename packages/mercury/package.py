@@ -23,7 +23,7 @@ class Mercury(BuiltinMercury):
     version('2.0.1', sha256='335946d9620ac669643ffd9861a5fb3ee486834bab674b7779eaac9d6662e3fa')
     version('2.0.0',
            sha256='9e80923712e25df56014309df70660e828dbeabbe5fcc82ee024bcc86e7eb6b7')
-    version('experimental', git='https://github.com/srini009/mercury.git', branch='pvar_interface')
+    version('develop', git='https://github.com/srini009/mercury.git', branch='pvar_interface')
     version('master-ucx', branch='ucx', submodules=True)
     version('2.0.0rc1-pvar', git='https://github.com/srini009/mercury.git', branch='mercury_profiling_interface')
     version('develop-multi_recv', git='https://github.com/soumagne/mercury.git', branch='multi_recv', preferred=False)
