@@ -45,7 +45,7 @@ class MochiMargo(AutotoolsPackage):
     version('0.4.4', sha256='2e2e6e2a8a7d7385e2fe204c113cb149f30847f0b1f48ec8dd708a74280bd89e')
     version('0.4.3', sha256='61a634d6983bee2ffa06e1e2da4c541cb8f56ddd9dd9f8e04e8044fb38657475')
     version('0.4.2', sha256='91085e28f50e373b9616e1ae5c3c8d40a19a7d3776259592d8f361766890bcaa')
-    version('experimental', git='https://github.com/srini009/mochi-margo.git', branch='experimental')
+    version('develop-test', git='https://github.com/srini009/mochi-margo.git', branch='develop-test')
 
     variant('pvar', default=False, description="extract performance data from Mercury")
 
@@ -58,9 +58,9 @@ class MochiMargo(AutotoolsPackage):
     depends_on('pkgconfig', type=("build"))
     depends_on('argobots@1.0:')
     # "breadcrumb" support not available in mercury-1.0
+    depends_on('mercury@develop', when='@develop-test')
     depends_on('mercury@1.0.0:', type=("build", "link", "run"), when='@:0.5.1')
     depends_on('mercury@2.0.0:', type=("build", "link", "run"), when='@0.5.2:')
-    depends_on('mercury@experimental', when='@experimental')
 
     # dependencies for develop version
     depends_on('mercury@master', type=("build", "link", "run"), when='@develop')
