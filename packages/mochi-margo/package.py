@@ -63,7 +63,7 @@ class MochiMargo(AutotoolsPackage):
     depends_on('mercury@2.0.0:', type=("build", "link", "run"), when='@0.5.2:')
 
     # dependencies for develop version
-    depends_on('mercury@master', type=("build", "link", "run"), when='@develop')
+    #depends_on('mercury@master', type=("build", "link", "run"), when='@develop')
 
     def autoreconf(self, spec, prefix):
         sh = which('sh')
