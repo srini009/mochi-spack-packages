@@ -18,7 +18,7 @@ class MochiSymbiomon(CMakePackage):
 
     depends_on('libuuid')
     depends_on('mochi-margo@experimental +pvar')
-    depends_on('mercury@master')
+    depends_on('mercury@experimental')
     #depends_on('argobots@main')
     depends_on('argobots@1.0:')
     depends_on('mochi-sdskv@experimental', when='+aggregator')
