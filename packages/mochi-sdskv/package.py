@@ -63,6 +63,7 @@ class MochiSdskv(AutotoolsPackage):
     variant('lmdb', default=False, description="Enable lmdb keyval backend")
     variant('bedrock', default=True, description="Enable bedrock (Mochi loader)")
 
+    depends_on('pkgconfig')
     depends_on('mochi-symbiomon@develop', when='+symbiomon @develop-test')
     depends_on('autoconf@2.65:')
     depends_on('automake@1.13.4:')
@@ -86,7 +87,7 @@ class MochiSdskv(AutotoolsPackage):
     #depends_on('mochi-bedrock@0.3:', when="+bedrock @develop-test")
 
     # variable dependencies
-    depends_on('berkeley-db @18.1.40:', when="+bdb")
+    depends_on('berkeley-db @18.1.40: +cxx +stl', when="+bdb")
     # For now we are stuck with 1.22 because of a problem with 1.23
     # (see https://github.com/google/leveldb/issues/891)
     depends_on('leveldb@:1.22', when="+leveldb")
