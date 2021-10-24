@@ -17,8 +17,7 @@ class MochiReducer(CMakePackage):
     variant('symbiomon', default=False, description='Enable building of the symbiomon metric instrumentation module')
 
     depends_on('libuuid')
-    depends_on('mochi-margo@develop')
-    depends_on('mercury@master')
+    depends_on('mochi-margo@develop-test')
     #depends_on('argobots@main')
     depends_on('argobots@1.0:')
     depends_on('mochi-sdskv@develop-test', when='+aggregator')

@@ -82,6 +82,7 @@ class MochiSdskv(AutotoolsPackage):
 
     # dependencies for develop version
     depends_on('mochi-margo@develop-test', when='+symbiomon @develop-test')
+    depends_on('mochi-margo@develop-test', when='+aggrservice @develop-test')
     depends_on('mochi-margo@develop', when='@develop')
     depends_on('mochi-remi@develop', when='+remi @develop')
     depends_on('mochi-bedrock@develop', when="+bedrock @develop")
