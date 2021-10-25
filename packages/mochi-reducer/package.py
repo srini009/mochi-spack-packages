@@ -10,7 +10,7 @@ class MochiReducer(CMakePackage):
     url = "https://github.com/srini009/reducer"
     git='https://github.com/srini009/reducer.git'
 
-    version('develop', branch='master')
+    version('develop', branch='main')
 
     variant('aggregator', default=True, description='Aggregate time-series data')
     variant('bedrock', default=False, description='Enable building of the bedrock module')
