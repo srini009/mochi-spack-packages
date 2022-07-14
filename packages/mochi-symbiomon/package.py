@@ -17,7 +17,7 @@ class MochiSymbiomon(CMakePackage):
     variant('bedrock', default=False, description='Enable building of the bedrock module')
 
     depends_on('libuuid')
-    depends_on('mochi-margo@0.9.5')
+    depends_on('mochi-margo@develop-test')
     #depends_on('argobots@main')
     depends_on('argobots@1.0:')
     depends_on('mochi-sdskv@develop-test', when='+aggregator')

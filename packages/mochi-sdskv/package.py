@@ -34,7 +34,6 @@ class MochiSdskv(AutotoolsPackage):
     git = "https://github.com/mochi-hpc/mochi-sdskv.git"
 
     version('dev-bedrock', branch='dev-bedrock');
-    version('develop', branch='main')
     version('develop-test', branch='main', git='https://github.com/srini009/mochi-sdskv.git')
     version('main', branch='main')
     version('0.1.14', sha256='0e6aafadd29d93d1828672f30242ba35b77cc44e9c7c6f6b74083d582efab80d')
@@ -71,7 +70,7 @@ class MochiSdskv(AutotoolsPackage):
     depends_on('libtool', type=("build"))
     depends_on('jsoncpp@1.9.1:')
     depends_on('mpi', when='+benchmark')
-    depends_on('mpi', when='+aggrservice @develop-test')
+    depends_on('mpi', when='+aggrservice')
     depends_on('mochi-margo@0.4:', when='@:0.1.3')
     depends_on('mochi-margo@0.5.2:', when='@0.1.4:')
     depends_on('mochi-abt-io', when='@:0.1.11')
@@ -82,11 +81,8 @@ class MochiSdskv(AutotoolsPackage):
 
     # dependencies for develop version
     depends_on('mochi-margo@develop-test', when='+symbiomon @develop-test')
-    depends_on('mochi-margo@develop-test', when='+aggrservice @develop-test')
-    depends_on('mochi-margo@develop', when='@develop')
-    depends_on('mochi-remi@develop', when='+remi @develop')
-    depends_on('mochi-bedrock@develop', when="+bedrock @develop")
-    #depends_on('mochi-bedrock@0.3:', when="+bedrock @develop-test")
+    depends_on('mochi-margo@develop-test', when='+aggrservice')
+    depends_on('mochi-bedrock@0.3:', when="+bedrock @develop-test")
 
     # variable dependencies
     depends_on('berkeley-db @18.1.40: +cxx +stl', when="+bdb")
