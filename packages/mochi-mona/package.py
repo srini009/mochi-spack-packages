@@ -33,6 +33,10 @@ class MochiMona(CMakePackage):
     url = 'https://github.com/mochi-hpc/mochi-mona/archive/refs/tags/v0.1.tar.gz'
     git = 'https://github.com/mochi-hpc/mochi-mona.git'
 
+    version('0.2.3', sha256='cf9822d12c901b80a3fe029bf128d2b03ce897aabea4a0ea827eeb761bdcb405')
+    version('0.2.2', sha256='c6ac88c98e622dfa87743a4b5649eaa247fb886a707442f8bc5ff918c5ede93d')
+    version('0.2.1', sha256='deae5677d99410c908f7844f46ec83b3ade4498750e25836446f4a6346470b92')
+    version('0.2', sha256='e14dab43a42afb6fcc0f362f4feeec9599381e101d4c594a6feb3db71dc5e000')
     version('0.1.1', sha256='574d29a4751b27c9ba8a2b17c8d157186604137f6025ec3e8402f14eed18e5bd')
     version('0.1', sha256='815be710beafebb0cf4b1b78ba83781982849ef962dfa66e46adae027dff88e8')
     version('main', branch='main')
@@ -40,11 +44,14 @@ class MochiMona(CMakePackage):
 
     variant('benchmark', default=False,
             description='Build a benchmark to compare performance against MPI')
+    variant('mpi', default=False, when='@0.2:',
+            description='Build and install library of MPI wrappers')
 
     depends_on('cmake@3.14:', type=('build'))
     depends_on('argobots@1.0:', type=("build", "link", "run"))
     depends_on('mercury@2.0.0:', type=("build", "link", "run"), when='@main,0.1:9.9.9')
     depends_on('mpi', when='+benchmark', type=("build", "link", "run"))
+    depends_on('mpi', when='+mpi', type=("build", "link", "run"))
 
     # dependencies for develop version
     depends_on('mercury@master', type=("build", "link", "run"), when='@develop')
@@ -53,5 +60,9 @@ class MochiMona(CMakePackage):
         args = ['-DBUILD_SHARED_LIBS:BOOL=ON']
         if '+benchmark' in self.spec:
             args.append('-DENABLE_BENCHMARK:BOOL=ON')
+        if '+mpi' in self.spec:
+            args.append('-DENABLE_MPI_WRAPPERS:BOOL=ON')
+        if '+benchmark' in self.spec or '+mpi' in self.spec:
             args.append('-DCMAKE_C_COMPILER=%s' % self.spec['mpi'].mpicc)
+            args.append('-DCMAKE_CXX_COMPILER=%s' % self.spec['mpi'].mpicxx)
         return args

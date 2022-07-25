@@ -10,6 +10,8 @@ class MochiThallium(CMakePackage):
 
     version('main', branch='main')
     version('develop', branch='main')
+    version('0.10.1', sha256='5a8dc1f1622f4186b02fbabd47a8a33ca6be3d07757010f3d63d30e9f74fec8c')
+    version('0.10.0', sha256='5319e25a42deab7c639e980885fe3be717cda2c2c693a1906f5a6c79b31edef8')
     version('0.9.1', sha256='dee884d0e054c838807f9c17781acfa99b26e3be1cc527bf09ceaa997336b3e4')
     version('0.9',   sha256='6b867b73f5dd76ea160d83782980149f33ae3567c370cee63d945e2e94609331')
     version('0.8.5', sha256='2d6d1fd97ad5b38c848ece6428c27400f752d57254324bfd0f1ea660d6a815a6')
@@ -36,20 +38,23 @@ class MochiThallium(CMakePackage):
     version('0.3',   sha256='4f9f78e52c1725f6ea5f933d7548bde36729dd9eff08f58fe7fe40682bc5f748')
 
     variant('cereal', default=True,
-            description='Use the cereal library for serialization')
+            description='Use the cereal library for serialization',
+            when='@0.4.1:')
 
     depends_on('pkgconfig', type=('build'))
     depends_on('mochi-margo@develop', when='@develop')
+    depends_on('mochi-margo@0.9.8:', when='@0.10.0:')
     depends_on('mochi-margo@0.7:', when='@0.7:')
     depends_on('mochi-margo@0.6:', when='@0.5:')
     depends_on('mochi-margo@0.4:', when='@:0.3.4')
     depends_on('mochi-margo@0.5:', when='@0.4:0.4.2')
-    depends_on('cereal', when='@0.4.1: +cereal')
+    with when('+cereal'):
+        depends_on('cereal@:1.3.0', when='@0.4.1:0.10.0')
+        depends_on('cereal@1.3.1:', when='@0.10.1:')
     # thallium relies on std::decay_t
     conflicts('%gcc@:4.9.0');
 
     def cmake_args(self):
-        args = ["-DBUILD_SHARED_LIBS:BOOL=ON" ]
-        if '+cereal' in self.spec:
-            args.append("-DENABLE_CEREAL:BOOL=ON")
+        args = []
+        args.append(self.define_from_variant("ENABLE_CEREAL", "cereal"))
         return args

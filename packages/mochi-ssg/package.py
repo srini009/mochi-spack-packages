@@ -18,6 +18,10 @@ class MochiSsg(AutotoolsPackage):
     version('main', branch='main')
     version('develop', branch='main')
     version('dev-error-codes', branch='dev-error-codes')
+    version('0.5.2', tag='v0.5.2')
+    version('0.5.1', tag='v0.5.1')
+    version('0.5.0', tag='v0.5.0')
+    version('0.4.6', tag='v0.4.6')
     version('0.4.5', tag='v0.4.5')
     version('0.4.4', tag='v0.4.4')
     version('0.4.3.1', tag='v0.4.3.1')
@@ -68,9 +72,14 @@ class MochiSsg(AutotoolsPackage):
                 "--enable-mpi",
                 "CC=%s" % spec['mpi'].mpicc
                 ])
-        elif '+pmix' in spec:
+
+        if '+pmix' in spec:
             extra_args.extend([
                 "--enable-pmix"
+                ])
+        else:
+            extra_args.extend([
+                "--disable-pmix"
                 ])
 
         if '+drc' in spec:

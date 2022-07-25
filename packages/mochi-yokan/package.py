@@ -5,7 +5,7 @@
 from spack import *
 
 
-class MochiYokan(CMakePackage, PythonPackage):
+class MochiYokan(CMakePackage):
     """A Mochi library that provides a Margo-based key/value service."""
 
     homepage = "https://github.com/mochi-hpc/mochi-yokan"
@@ -14,6 +14,14 @@ class MochiYokan(CMakePackage, PythonPackage):
 
     version('develop', branch='main')
     version('main', branch='main')
+    version('0.2.7', sha256='ff32bf67c2d908acad872a2d9b8d077d1011c90367979d8ed8b03d47c586cfd4')
+    version('0.2.6', sha256='0b4e60aa8241283c10edc136ddf69514f96e2ce08020fc5a5c38173b1e7bc9e2')
+    version('0.2.5', sha256='e0663531fcf3e8ee3e290d5b28a31c54a1c57f45f67f4000ae23d9913705ff68')
+    version('0.2.4', sha256='a81630b93a0172aab489c6069e723818a6fafcb3bde4efb96be7401b0f2d51f5')
+    version('0.2.3', sha256='6e6f13d29d9a85ac34030298e6678c5a8834f5e627e46958c6be076ce1eebf60')
+    version('0.2.2', sha256='b6c7a5caf664aeb9472cb37c3138251243cc47dc2f8688e22053588dab28cf40')
+    version('0.2.1', sha256='d5731d2c83c37f231ef0026ed3df82f774b94dd365d75bb396ed68d1884288c3')
+    version('0.2', sha256='aea3f435342a37c2f3332200fac8894ef78b0e6f2b200ec18be9f41389902f78')
     version('0.1', sha256='b5043ba37102e8956ae59201953e9e7ce56378dde19a4c99b6e82b9ff575d675')
 
     variant('berkeleydb', default=False, description="Enable BerkelyDB backend")
@@ -27,6 +35,7 @@ class MochiYokan(CMakePackage, PythonPackage):
     variant('python', default=False, description="Enable Python binding")
     variant('bedrock', default=False, description="Enable Bedrock support")
 
+    depends_on('cmake@3.15:', type='build')
     depends_on('pkgconfig')
     depends_on('uuid')
     depends_on('nlohmann-json')
@@ -40,7 +49,7 @@ class MochiYokan(CMakePackage, PythonPackage):
     # mochi dependencies for develop version
     depends_on('mochi-margo@develop', when='@develop')
     depends_on('mochi-bedrock@develop', when="+bedrock @develop")
-    depends_on('py-mochi-margo@develop', when='+python')
+    depends_on('py-mochi-margo@develop', when='+python @develop')
 
     # backends
     depends_on('berkeley-db @18.1.40: +cxx +stl', when='+berkeleydb')
@@ -49,6 +58,7 @@ class MochiYokan(CMakePackage, PythonPackage):
     depends_on('leveldb@:1.22', when='+leveldb')
     depends_on('lmdb', when='+lmdb')
     depends_on('rocksdb', when='+rocksdb')
+    depends_on('rocksdb@:6', when='+rocksdb @:0.2.5')
     depends_on('tkrzw', when='+tkrzw')
     depends_on('gdbm', when='+gdbm')
     depends_on('unqlite@master', when='+unqlite')
@@ -57,6 +67,8 @@ class MochiYokan(CMakePackage, PythonPackage):
     depends_on('lua-sol2', when='+lua')
     depends_on('python@3.6.0:', when='+python')
     depends_on('py-pybind11@2.7.0:', when='+python')
+
+    extends('python', when='+python')
 
     def cmake_args(self):
         args = []
@@ -72,6 +84,3 @@ class MochiYokan(CMakePackage, PythonPackage):
         args.append('-DENABLE_PYTHON:BOOL=%s' % variant_bool('+python'))
         args.append('-DENABLE_BEDROCK:BOOL=%s' % variant_bool('+bedrock'))
         return args
-
-    def install(self, spec, prefix):
-        CMakePackage.install(self, spec, prefix)

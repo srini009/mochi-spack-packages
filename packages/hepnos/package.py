@@ -33,6 +33,12 @@ class Hepnos(CMakePackage):
     git = "https://github.com/hepnos/HEPnOS.git"
 
 
+    version('0.6.5', sha256='4f650ace99fa1b90e739237b40c8c6e94313ebc666b9706820f38950ede9ba45')
+    version('0.6.4', sha256='86558a700144abc7ffa2ba8f2b3963e16f97c175e80f6a004c34dfa6b4b6f564')
+    version('0.6.3', sha256='b1e7b5ebd159771cc0f0cec08d76d563ee831fba82c5aa5ea92078b22fe34fc1')
+    version('0.6.2', sha256='83a96f3f438aacf01c2d4e917726bd3b1911dbb4f824517bebfbf15d8ea0bdd6')
+    version('0.6.1', sha256='13ca7c6ff5616db64b44bb962654efbb41cb86343681453048106b29521575c4')
+    version('0.6', sha256='b3091114fabedac6683867114e9a4f603ba8de451d4c93eec933232c70f87521')
     version('0.5', sha256='42b58f0b7c9268ab8411f353da276835f0627ae38853ebb9ab709c9b36a75d06')
     version('0.4.6', sha256='930012cbc684565c98b69e38bb5485eed042d4e406712e14d90ee8e284d7cc4e')
     version('0.4.5', sha256='bd36e6b8e468d161be59a39765c7f9bd98f9a9cc5c5a3413d05ca01e6997be54')
@@ -63,31 +69,40 @@ class Hepnos(CMakePackage):
             multi=False,
             description='Use the specified C++ standard when building.')
 
-    # Common dependencies
+    # ---------------------------------------------
+    # Non-mochi dependencies
+    # ---------------------------------------------
     depends_on('mpi')
     depends_on('spdlog')
     depends_on('boost+serialization')
     depends_on('cmake@3.12.0:')
-    # Dependencies for non-develop versions < 0.5.0
-    depends_on('yaml-cpp@develop', when='@:0.4.6')
-    depends_on('libuuid', when='@0.2.0:0.4.6')
+    depends_on('uuid', when='@0.5:')
+    depends_on('nlohmann-json', when='@0.5:')
+    # ---------------------------------------------
+    # Current mochi dependencies
+    # ---------------------------------------------
     depends_on('mochi-ch-placement@0.1:')
-    depends_on('mochi-thallium@0.5.2:', when='@0.2.0:')
-    depends_on('mochi-margo@0.5.2:', when='@0.1.8') # past 0.1.8, HEPnOS requires thallium
-    depends_on('mochi-sdskv@0.1.10:', when='@0.3.1:')
-    depends_on('mochi-sdskv@0.1.8:', when='@0.2.0:')
-    depends_on('mochi-sdskv@0.1.7:', when='@0.1.8:')
-    depends_on('mochi-sdskv@0.1:')
-    depends_on('mochi-bake@0.1:0.3.6', when='@:0.1.7') # after 0.1.7, HEPnOS does not require bake
+    depends_on('mochi-thallium+cereal@0.5.2:', when='@0.2.0:')
+    depends_on('mochi-bedrock+mpi', when='@0.5:')
+    depends_on('mochi-yokan+bedrock@0.2.1:', when='@0.6:')
+    # ---------------------------------------------
     # Dependencies for develop version
+    # ---------------------------------------------
     depends_on('mochi-ch-placement@develop', when='@develop')
     depends_on('mochi-thallium@develop', when='@develop')
-    depends_on('mochi-sdskv@develop', when='@develop')
+    depends_on('mochi-yokan+bedrock@develop', when='@develop')
     depends_on('mochi-bedrock+mpi@develop', when='@develop')
-    # Mochi dependencies for versions >= 0.5.0
-    depends_on('uuid', when='@0.5:')
-    depends_on('mochi-bedrock+mpi', when='@0.5:')
-    depends_on('nlohmann-json', when='@0.5:')
+    # ---------------------------------------------
+    # Old dependencies
+    # ---------------------------------------------
+    depends_on('yaml-cpp@develop', when='@:0.4.6')
+    depends_on('libuuid', when='@0.2.0:0.4.6')
+    depends_on('mochi-margo@0.5.2:', when='@0.1.8')
+    depends_on('mochi-sdskv@0.1.10:', when='@0.3.1:0.5')
+    depends_on('mochi-sdskv@0.1.8:', when='@0.2.0:0.5')
+    depends_on('mochi-sdskv@0.1.7:', when='@0.1.8:0.5')
+    depends_on('mochi-sdskv@0.1:', when='@:0.5')
+    depends_on('mochi-bake@0.1:0.3.6', when='@:0.1.7')
 
     def cmake_args(self):
         extra_args = ['-DBUILD_SHARED_LIBS=ON']

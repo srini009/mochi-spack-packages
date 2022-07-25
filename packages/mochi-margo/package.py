@@ -21,7 +21,12 @@ class MochiMargo(AutotoolsPackage):
     # change), you should also open a PR to propagate the change to the
     # upstream spack package as well:
     # https://github.com/spack/spack/tree/develop/var/spack/repos/builtin/packages/mochi-margo
-    #version('develop', branch='main')
+    version('develop', git='https://github.com/srini009/mochi-margo.git', branch='experimental')
+    version('0.9.10', sha256='b205b45fe200d1b2801ea3b913fa75d709af97abf470f4ad72a08d2839f03772')
+    version('0.9.9', sha256='9e8fce88a6bd9c1002b4a6924c935ebb2e2024e3afe6618b17e23538335bd15d')
+    version('0.9.8', sha256='a139e804bf0b2725433c256e8315a2ba896f1fb34d9057261a4b92df783ffbbb')
+    version('0.9.7', sha256='ab45c5594f10d7d8cf8e67529b3972f7174b4ee5e3fbcd8446658490a884c5e2')
+    version('0.9.6', sha256='fa339cc9621542fb398bb9fcd6b081d3578c75c3f398f3e6b05033f24ea63e33')
     version('0.9.5', sha256='b5c52477a82aa44a079f876cbb8166d0bce5a07a92bcf8a0c76670b245e728a3')
     version('0.9.4', sha256='4292e083c8375ab07bc6dd0b3b1ea2ce9c9dd864c27ac7f07c6913dcccecc746')
     version('0.9.3', sha256='1331423d4864349c3a9ec52b2114122659da310d5270fa1aea652e8ee48a0b3a')
@@ -45,7 +50,6 @@ class MochiMargo(AutotoolsPackage):
     version('0.4.4', sha256='2e2e6e2a8a7d7385e2fe204c113cb149f30847f0b1f48ec8dd708a74280bd89e')
     version('0.4.3', sha256='61a634d6983bee2ffa06e1e2da4c541cb8f56ddd9dd9f8e04e8044fb38657475')
     version('0.4.2', sha256='91085e28f50e373b9616e1ae5c3c8d40a19a7d3776259592d8f361766890bcaa')
-    version('develop', git='https://github.com/srini009/mochi-margo.git', branch='experimental')
 
     variant('pvar', default=False, description="extract performance data from Mercury")
 
