@@ -63,7 +63,6 @@ class MochiSdskv(AutotoolsPackage):
     variant('bedrock', default=True, description="Enable bedrock (Mochi loader)")
 
     depends_on('pkgconfig')
-    #depends_on('mochi-symbiomon@develop', when='+symbiomon @develop-test')
 
     depends_on('autoconf@2.65:')
     depends_on('automake@1.13.4:')
@@ -81,7 +80,6 @@ class MochiSdskv(AutotoolsPackage):
     depends_on('mochi-bedrock', when="+bedrock")
 
     # dependencies for develop version
-    #depends_on('mochi-margo@develop', when='+symbiomon @develop-test')
     depends_on('mochi-bedrock@0.3:', when="+bedrock @develop")
 
     # variable dependencies
