@@ -17,10 +17,10 @@ class MochiReducer(CMakePackage):
     variant('symbiomon', default=False, description='Enable building of the symbiomon metric instrumentation module')
 
     depends_on('libuuid')
-    depends_on('mochi-margo@develop-test')
+    depends_on('mochi-margo@develop')
     #depends_on('argobots@main')
     depends_on('argobots@1.0:')
-    depends_on('mochi-sdskv@develop-test', when='+aggregator')
+    depends_on('mochi-sdskv@develop', when='+aggregator')
     depends_on('mochi-abt-io@develop')
     depends_on('mochi-bedrock@develop', when='+bedrock')
     depends_on('mochi-symbiomon@develop', when='+symbiomon')
