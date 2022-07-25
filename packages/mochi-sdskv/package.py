@@ -33,7 +33,7 @@ class MochiSdskv(AutotoolsPackage):
     git = "https://github.com/mochi-hpc/mochi-sdskv.git"
 
     version('dev-bedrock', branch='dev-bedrock');
-    version('develop-test', branch='main', git='https://github.com/srini009/mochi-sdskv.git')
+    version('develop', branch='main', git='https://github.com/srini009/mochi-sdskv.git')
     version('main', branch='main')
     version('0.1.14', sha256='0e6aafadd29d93d1828672f30242ba35b77cc44e9c7c6f6b74083d582efab80d')
     version('0.1.13', sha256='998ea87656ee8af135a8ad154b8226464f4ffa46f9a1638c7a6b5a1456320a90')
@@ -54,7 +54,7 @@ class MochiSdskv(AutotoolsPackage):
 
     #Custom SYMBIOMON-related variants
     variant('aggrservice', default=False, description='Compiles an MPI-based SDSKV aggr service')
-    variant('symbiomon', default=False, description="Enables remote metrics monitoring")
+    #variant('symbiomon', default=False, description="Enables remote metrics monitoring")
     variant('benchmark', default=False, description='Compiles a benchmark')
     variant('remi', default=False, description="Enables migration support using REMI")
     variant('bdb', default=True, description="Enable Berkely DB keyval backend")
@@ -63,13 +63,15 @@ class MochiSdskv(AutotoolsPackage):
     variant('bedrock', default=True, description="Enable bedrock (Mochi loader)")
 
     depends_on('pkgconfig')
-    depends_on('mochi-symbiomon@develop', when='+symbiomon @develop-test')
+    #depends_on('mochi-symbiomon@develop', when='+symbiomon @develop-test')
+
     depends_on('autoconf@2.65:')
     depends_on('automake@1.13.4:')
     depends_on('libtool', type=("build"))
     depends_on('jsoncpp@1.9.1:')
     depends_on('mpi', when='+benchmark')
     depends_on('mpi', when='+aggrservice')
+    depends_on('mochi-margo@develop', when='+aggrservice @develop')
     depends_on('mochi-margo@0.4:', when='@:0.1.3')
     depends_on('mochi-margo@0.5.2:', when='@0.1.4:')
     depends_on('mochi-abt-io', when='@:0.1.11')
@@ -79,9 +81,8 @@ class MochiSdskv(AutotoolsPackage):
     depends_on('mochi-bedrock', when="+bedrock")
 
     # dependencies for develop version
-    depends_on('mochi-margo@develop-test', when='+symbiomon @develop-test')
-    depends_on('mochi-margo@develop-test', when='+aggrservice')
-    depends_on('mochi-bedrock@0.3:', when="+bedrock @develop-test")
+    #depends_on('mochi-margo@develop', when='+symbiomon @develop-test')
+    depends_on('mochi-bedrock@0.3:', when="+bedrock @develop")
 
     # variable dependencies
     depends_on('berkeley-db @18.1.40: +cxx +stl', when="+bdb")

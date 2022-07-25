@@ -45,12 +45,13 @@ class PyMochiSsg(PythonPackage):
     version('0.1', tag='v0.1')
 
     variant('mpi', default=True, description="Enable MPI support")
+    variant('drc', default=False, description="Enable Cray-DRC support")
 
     depends_on('py-pkgconfig', type=('build'))
     depends_on('py-pybind11', type=('build'))
     depends_on('py-mpi4py', when='+mpi')
     depends_on('mpi', when='+mpi', type=("build"))
-    
+
     depends_on('mochi-ssg+mpi@0.4.1:', when='@0.1.2: +mpi')
     depends_on('mochi-ssg@0.4.1:', when='@0.1.2: ~mpi')
     depends_on('mochi-ssg+mpi@0.1:0.2', when='@0.1:0.1.1 +mpi')
@@ -63,3 +64,9 @@ class PyMochiSsg(PythonPackage):
 
     depends_on('mochi-ssg+mpi@dev-error-codes', when='+mpi @dev-new-ssg-api')
     depends_on('mochi-ssg@dev-error-codes', when='~mpi @dev-new-ssg-api')
+
+    depends_on('rdma-credentials', when='+drc')
+
+    def setup_build_environment(self, env):
+        env.set('CC', self.spec['mpi'].mpicc)
+        env.set('CXX', self.spec['mpi'].mpicxx)
