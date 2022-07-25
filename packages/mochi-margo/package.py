@@ -23,7 +23,6 @@ class MochiMargo(AutotoolsPackage):
     # change), you should also open a PR to propagate the change to the
     # upstream spack package as well:
     # https://github.com/spack/spack/tree/develop/var/spack/repos/builtin/packages/mochi-margo
-    version('develop', branch='main')
     version("0.15.0", sha256="f962f02ddaae125eaf15bf89126ee47b4f852d366b14248d2d67a0be8f661224")
     version("0.14.1", sha256="69229a9126b76aff7fd47e25c4a8f72804f101c5c603c4e4ef93f4fb7a1b6662")
     version("0.14.0", sha256="ff0e3fa786630b63280606243c35f1ea3a25fa2ba6f08bf9065cab9fcc7fa1c7")
@@ -62,7 +61,7 @@ class MochiMargo(AutotoolsPackage):
     version('0.4.4', sha256='2e2e6e2a8a7d7385e2fe204c113cb149f30847f0b1f48ec8dd708a74280bd89e')
     version('0.4.3', sha256='61a634d6983bee2ffa06e1e2da4c541cb8f56ddd9dd9f8e04e8044fb38657475')
     version('0.4.2', sha256='91085e28f50e373b9616e1ae5c3c8d40a19a7d3776259592d8f361766890bcaa')
-    version('develop-test', git='https://github.com/srini009/mochi-margo.git', branch='experimental')
+    version('develop', git='https://github.com/srini009/mochi-margo.git', branch='experimental')
 
     variant('pvar', default=False, description="extract performance data from Mercury")
 
@@ -77,8 +76,8 @@ class MochiMargo(AutotoolsPackage):
     depends_on('argobots@1.0:')
     depends_on('argobots@1.1:', when='@0.11:')
     # "breadcrumb" support not available in mercury-1.0
-    depends_on('mercury@2.1.0', when='@develop-test')
-    depends_on('mercury@develop', when='@develop-test +pvar')
+    depends_on('mercury@2.1.0', when='@develop')
+    depends_on('mercury@develop', when='@develop +pvar')
     depends_on('mercury@1.0.0:', type=("build", "link", "run"), when='@:0.5.1')
     depends_on('mercury@2.0.0:', type=("build", "link", "run"), when='@0.5.2:')
 
