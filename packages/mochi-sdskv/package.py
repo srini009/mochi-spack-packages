@@ -61,7 +61,7 @@ class MochiSdskv(AutotoolsPackage):
     variant('bdb', default=True, description="Enable Berkely DB keyval backend")
     variant('leveldb', default=True, description="Enable LevelDB keyval backend")
     variant('lmdb', default=False, description="Enable lmdb keyval backend")
-    variant('bedrock', default=True, description="Enable bedrock (Mochi loader)")
+    variant('bedrock', default=False, description="Enable bedrock (Mochi loader)")
 
     depends_on('pkgconfig')
     depends_on('autoconf@2.65:')
