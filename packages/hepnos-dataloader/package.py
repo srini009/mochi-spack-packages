@@ -29,13 +29,17 @@ class HepnosDataloader(CMakePackage):
     """Dataloader for HEPnOS."""
 
     homepage = "https://github.com/hepnos/HEPnOS-Dataloader"
-    url = "https://github.com/hepnos/HEPnOS-Dataloader"
+    url = "https://github.com/hepnos/HEPnOS-Dataloader/archive/refs/tags/v0.4.tar.gz"
     git = "https://github.com/hepnos/HEPnOS-Dataloader.git"
 
-    version('develop', branch='master', submodules=True)
+    version('develop', branch='main', submodules=True)
     version('main', branch='main', submodules=True)
-    version('0.4', branch='dev-bedrock', submodules=True)
-    version('0.3.1', tag='v0.3.1', submodules=True, preferred=True)
+    version('0.5.3', tag='v0.5.3', submodules=True)
+    version('0.5.2', tag='v0.5.2', submodules=True)
+    version('0.5.1', tag='v0.5.1', submodules=True)
+    version('0.5', tag='v0.5', submodules=True)
+    version('0.4', tag='v0.4', submodules=True)
+    version('0.3.1', tag='v0.3.1', submodules=True)
     version('0.3', tag='v0.3', submodules=True)
     version('0.2.1', tag='v0.2.1')
     version('0.2', tag='v0.2')
@@ -46,10 +50,11 @@ class HepnosDataloader(CMakePackage):
 
     depends_on('cmake@3.9.0:', type=('build'))
     depends_on('mpi')
-    depends_on('hepnos@0.3.2:')
-    depends_on('hepnos@0.5.0:', when='@0.4:')
+    depends_on('hepnos@0.6:', when='@0.5:')
+    depends_on('hepnos@0.5:', when='@0.4')
+    depends_on('hepnos@0.3.2:0.4.6', when='@:0.3')
     depends_on('tclap')
-    depends_on('spdlog@:1.8.0') # TODO fix HEPnOS serializations so 1.8.1+ work
+    depends_on('spdlog')
     depends_on('hdf5')
     depends_on('boost+serialization')
 

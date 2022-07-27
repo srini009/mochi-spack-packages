@@ -1,8 +1,8 @@
 
 
-from spack.pkg.builtin.argobots import Argobots
+from spack.pkg.builtin.argobots import Argobots as BuiltinArgobots
 
-class Argobots(Argobots):
+class Argobots(BuiltinArgobots):
 
     # these are available upstream, but we also define them here for users
     # working against previous spack releases
@@ -21,6 +21,7 @@ class Argobots(Argobots):
             values=('none', 'canary-32', 'mprotect', 'mprotect-strict'), multi=False)
     variant("tool", default=False, description="Enable ABT_tool interface")
     variant("affinity", default=False, description="Enable affinity setting")
+    variant("lazy_stack_alloc", default=False, description="Enable lazy stack allocation")
 
     depends_on("valgrind", when="+valgrind")
     depends_on("libunwind", when="+stackunwind")
@@ -41,6 +42,11 @@ class Argobots(Argobots):
             args.append('--enable-debug=yes')
         else:
             args.append('--disable-debug')
+
+        if '+lazy_stack_alloc' in self.spec:
+            args.append('--enable-lazy-stack-alloc=yes')
+        else:
+            args.append('--disable-lazy-stack-alloc')
 
         if '+stackunwind' in self.spec:
             args.append('--enable-stack-unwind')

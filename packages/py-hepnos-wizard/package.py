@@ -25,21 +25,15 @@
 from spack import *
 
 
-class PyMochiSonata(PythonPackage):
-    """Python wrapper for the Mochi Sonata library"""
+class PyHepnosWizard(PythonPackage):
+    """Python utility to help configure the HEPnOS service."""
 
-    homepage = 'https://github.com/mochi-hpc/py-mochi-sonata'
-    url      = 'https://github.com/mochi-hpc/py-mochi-sonata/archive/refs/tags/v0.1.2.tar.gz'
-    git      = 'https://github.com/mochi-hpc/py-mochi-sonata.git'
+    homepage = 'https://github.com/hepnos/HEPnOS-Wizard'
+    url      = 'https://github.com/hepnos/HEPnOS-Wizard/archive/refs/tags/v0.1.tar.gz'
+    git      = 'https://github.com/hepnos/HEPnOS-Wizard.git'
 
     version('develop', branch='main')
-    version('main', branch='main')
-    version('0.1.2', sha256='e72a6e9dde563fa2f6fba9a9808e91dd035aa02d16d82e20a794a7b916da1e55')
-    version('0.1.1', sha256='95cdb62edd7661917bbc0baaa5a4f3e50eb2d174c2571ed6c43c4c50873d48c8')
-    version('0.1',   sha256='d91a9ba7786d87e5fe5576ac72fcae9a5393fa8088cfd047dc8b31a5252bda83')
+    version('main', branch='main', preferred=True)
 
-    depends_on('python')
-    depends_on('py-pkgconfig', type=('build'))
-    depends_on('py-pybind11', type=('build'))
-    depends_on('py-mochi-margo')
-    depends_on('mochi-sonata@0.5:')
+    depends_on('py-setuptools', type=('build'))
+    depends_on('py-mochi-bedrock')

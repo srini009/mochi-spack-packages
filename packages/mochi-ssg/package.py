@@ -18,6 +18,10 @@ class MochiSsg(AutotoolsPackage):
     version('main', branch='main')
     version('develop', branch='main')
     version('dev-error-codes', branch='dev-error-codes')
+    version('0.5.2', tag='v0.5.2')
+    version('0.5.1', tag='v0.5.1')
+    version('0.5.0', tag='v0.5.0')
+    version('0.4.6', tag='v0.4.6')
     version('0.4.5', tag='v0.4.5')
     version('0.4.4', tag='v0.4.4')
     version('0.4.3.1', tag='v0.4.3.1')
@@ -51,6 +55,14 @@ class MochiSsg(AutotoolsPackage):
     depends_on('mochi-margo@0.6:', when='@0.4.1:')
     depends_on('mochi-margo@develop', when='@develop')
 
+    # NOTE: The default autoreconf steps should work fine for this package.
+    #       The explicit definition is just here as a workaround; Spack's
+    #       default autoreconf step is prone to libtool version mismatch as
+    #       of 2021/10/20.
+    def autoreconf(self, spec, prefix):
+        sh = which('sh')
+        sh('./prepare.sh')
+
     def configure_args(self):
         spec = self.spec
         extra_args = []
@@ -60,9 +72,14 @@ class MochiSsg(AutotoolsPackage):
                 "--enable-mpi",
                 "CC=%s" % spec['mpi'].mpicc
                 ])
-        elif '+pmix' in spec:
+
+        if '+pmix' in spec:
             extra_args.extend([
                 "--enable-pmix"
+                ])
+        else:
+            extra_args.extend([
+                "--disable-pmix"
                 ])
 
         if '+drc' in spec:
