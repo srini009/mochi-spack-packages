@@ -1,5 +1,5 @@
 ##############################################################################
-# Copyright (c) 2013-2017, Lawrence Livermore National Security, LLC.
+# Copyright (c) 2013-2022, Lawrence Livermore National Security, LLC.
 # Produced at the Lawrence Livermore National Laboratory.
 #
 # This file is part of Spack.
@@ -25,16 +25,26 @@
 from spack import *
 
 
-class PyHepnosWizard(PythonPackage):
-    """Python utility to help configure the HEPnOS service."""
+class PyMochiS4m(PythonPackage):
+    """Python library based on Mochi to easily broadcast data"""
 
-    homepage = 'https://github.com/hepnos/HEPnOS-Wizard'
-    url      = 'https://github.com/hepnos/HEPnOS-Wizard/archive/refs/tags/v0.0.1.tar.gz'
-    git      = 'https://github.com/hepnos/HEPnOS-Wizard.git'
+    homepage = 'https://github.com/mochi-hpc/py-mochi-s4m'
+    url      = 'https://github.com/mochi-hpc/py-mochi-s4m'
+    git      = 'https://github.com/mochi-hpc/py-mochi-s4m.git'
 
     version('develop', branch='main')
-    version('main', branch='main')
-    version("0.0.1", sha256="0fc7026e56efad7bad628f26131fba9dbf0c8836ba87ec4f294fdb0b3f2b7bed")
+    version('main', branch='main', preferred=True)
 
-    depends_on('py-setuptools', type=('build'))
-    depends_on('py-mochi-bedrock')
+    depends_on('python')
+    depends_on('py-pkgconfig', type=('build'))
+    depends_on('py-pybind11', type=('build'))
+    depends_on('py-mpi4py')
+    depends_on('mpi')
+    depends_on('spdlog')
+    depends_on('mochi-thallium')
+
+    depends_on('mochi-thallium@develop', when='@develop')
+
+    def setup_build_environment(self, env):
+        env.set('CC', self.spec['mpi'].mpicc)
+        env.set('CXX', self.spec['mpi'].mpicxx)

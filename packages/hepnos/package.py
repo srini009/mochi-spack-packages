@@ -32,7 +32,13 @@ class Hepnos(CMakePackage):
     url = "https://github.com/hepnos/HEPnOS/archive/v0.4.2.tar.gz"
     git = "https://github.com/hepnos/HEPnOS.git"
 
-
+    version("0.6.12", sha256="7c3b27b7ea24f86227e69cc8e5ddb82debf7eb452f5613958b2f72b38bbaa79e")
+    version("0.6.11", sha256="7fd48636ccfb38c7a68ab36a4991b8d3831092e31d70c83e0737a3fa497f0674")
+    version("0.6.10", sha256="105390e1bc3596e98104802b89a019def4f1c3cb0d6dfb8b1aff385e8cd47104")
+    version("0.6.9", sha256="00cf558907b73de99ab0bb052f551fbec4b00f81c0322e16df38756391922706")
+    version("0.6.8", sha256="9cc3a1c6bc47220b93de9941b0a4161fa09094cf0710841a1919839df4e7c3be")
+    version('0.6.7', sha256='d0e71f3dc0d2219a38d5caad4aa79213fb4459ffb929f99cdecdd40696122a3b')
+    version('0.6.6', sha256='ee72933d94ceaf35d1d056fef1e522b437d98057d4271bdd29f8508d946f9f2c')
     version('0.6.5', sha256='4f650ace99fa1b90e739237b40c8c6e94313ebc666b9706820f38950ede9ba45')
     version('0.6.4', sha256='86558a700144abc7ffa2ba8f2b3963e16f97c175e80f6a004c34dfa6b4b6f564')
     version('0.6.3', sha256='b1e7b5ebd159771cc0f0cec08d76d563ee831fba82c5aa5ea92078b22fe34fc1')
@@ -74,7 +80,8 @@ class Hepnos(CMakePackage):
     # ---------------------------------------------
     depends_on('mpi')
     depends_on('spdlog')
-    depends_on('boost+serialization')
+    depends_on('boost+serialization', when='@:0.6.6')
+    depends_on('boost+serialization+iostreams', when='@0.6.7:')
     depends_on('cmake@3.12.0:')
     depends_on('uuid', when='@0.5:')
     depends_on('nlohmann-json', when='@0.5:')
@@ -103,6 +110,8 @@ class Hepnos(CMakePackage):
     depends_on('mochi-sdskv@0.1.7:', when='@0.1.8:0.5')
     depends_on('mochi-sdskv@0.1:', when='@:0.5')
     depends_on('mochi-bake@0.1:0.3.6', when='@:0.1.7')
+
+    patch('0001-fix-KeyValueContainer-stats-0.6.6.patch', when='@0.6.6')
 
     def cmake_args(self):
         extra_args = ['-DBUILD_SHARED_LIBS=ON']
