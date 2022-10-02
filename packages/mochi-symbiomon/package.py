@@ -21,7 +21,7 @@ class MochiSymbiomon(CMakePackage):
     #depends_on('argobots@main')
     depends_on('argobots@1.0:')
     depends_on('mochi-sdskv@develop+aggrservice', when='+aggregator')
-    depends_on('mochi-abt-io@develop')
+    #depends_on('mochi-abt-io@develop')
     depends_on('mochi-bedrock@0.3:', when='+bedrock')
     depends_on('mochi-reducer@develop', when='+reducer')
 
