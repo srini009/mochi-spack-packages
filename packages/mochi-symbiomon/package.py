@@ -6,9 +6,9 @@ class MochiSymbiomon(CMakePackage):
     time-series data format over RDMA. It is primarily intended for remote-monitoring
     purposes."""
 
-    homepage = "https://github.com/srini009/symbiomon"
-    url = "https://github.com/srini009/symbiomon"
-    git='https://github.com/srini009/symbiomon.git'
+    homepage = "https://github.com/soma-monitoring-toolbox/soma-symbiomon-collector"
+    url = "https://github.com/soma-monitoring-toolbox/soma-symbiomon-collector"
+    git='https://github.com/soma-monitoring-toolbox/soma-symbiomon-collector.git'
 
     version('develop', branch='master')
 
