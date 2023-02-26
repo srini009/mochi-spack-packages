@@ -22,6 +22,12 @@ class MochiMargo(AutotoolsPackage):
     # upstream spack package as well:
     # https://github.com/spack/spack/tree/develop/var/spack/repos/builtin/packages/mochi-margo
     version('develop', git='https://github.com/srini009/mochi-margo.git', branch='experimental')
+    version("0.13", sha256="9a5a4aa81ceb10e010fbad6c7bb8d39d082fe6e61ed33b2b2d2b056917f401d8")
+    version("0.12.1", sha256="ff9d0f8722aff17737cd63f27758314b2ed78e518cd45d1fb9f0e3b7ccbcef50")
+    version("0.12", sha256="d9949423d87d74ae20b0e344fdc76cc7e0a62249f219b05297b8f44891f75a8e")
+    version("0.11.1", sha256="ce4a61e2796df2a2c6efdfbd2d2c5a6be31e524f279b740a423ed932607503f3")
+    version("0.11", sha256="3f9f30591127ecf3aac8a524c69cbc90fe3c8e68e263bda4c69b1e2c8d77ebdd")
+    version("0.10", sha256="163be090575ee267a84320b92791d83b98e9549b03bd705a166f0b5e4df53129")
     version('0.9.10', sha256='b205b45fe200d1b2801ea3b913fa75d709af97abf470f4ad72a08d2839f03772')
     version('0.9.9', sha256='9e8fce88a6bd9c1002b4a6924c935ebb2e2024e3afe6618b17e23538335bd15d')
     version('0.9.8', sha256='a139e804bf0b2725433c256e8315a2ba896f1fb34d9057261a4b92df783ffbbb')
@@ -61,6 +67,7 @@ class MochiMargo(AutotoolsPackage):
     depends_on('libtool', type=("build"))
     depends_on('pkgconfig', type=("build"))
     depends_on('argobots@1.0:')
+    depends_on('argobots@1.1:', when='@0.11:')
     # "breadcrumb" support not available in mercury-1.0
     depends_on('mercury@2.1.0', when='@develop')
     depends_on('mercury@develop', when='@develop +pvar')
