@@ -21,6 +21,7 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+from spack.package import *
 from spack import *
 
 
@@ -36,10 +37,10 @@ class MochiChPlacement(AutotoolsPackage):
     version('develop', branch='main')
     version('0.1', tag='v0.1')
 
-    depends_on('m4')
-    depends_on('autoconf')
-    depends_on('automake')
-    depends_on('libtool')
+    depends_on('m4', type='build')
+    depends_on('autoconf', type='build')
+    depends_on('automake', type='build')
+    depends_on('libtool', type='build')
 
     # NOTE: The default autoreconf steps should work fine for this package.
     #       The explicit definition is just here as a workaround; Spack's

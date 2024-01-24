@@ -1,4 +1,6 @@
+from spack.package import *
 from spack import *
+
 
 class MochiSonata(CMakePackage):
     """Sonata is a Mochi-based document store that uses UnQLite as a backend."""
@@ -9,6 +11,7 @@ class MochiSonata(CMakePackage):
 
     version('main', branch='main')
     version('develop', branch='main')
+    version("0.6.3", sha256="601167c39e871617a4472844917d88c00017a8312b0b6653be68d75b0f87a070")
     version('0.6.2', sha256='180f6c2e7991331813d21538b99101cc5af01fb35c66fd0b9ca971205c746347')
     version('0.6.1', tag='v0.6.1')
     version('0.6', tag='v0.6')

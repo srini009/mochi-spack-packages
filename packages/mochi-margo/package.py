@@ -3,6 +3,8 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
+
+from spack.package import *
 from spack import *
 
 
@@ -22,6 +24,10 @@ class MochiMargo(AutotoolsPackage):
     # upstream spack package as well:
     # https://github.com/spack/spack/tree/develop/var/spack/repos/builtin/packages/mochi-margo
     version('develop', git='https://github.com/srini009/mochi-margo.git', branch='experimental')
+    version("0.15.0", sha256="f962f02ddaae125eaf15bf89126ee47b4f852d366b14248d2d67a0be8f661224")
+    version("0.14.1", sha256="69229a9126b76aff7fd47e25c4a8f72804f101c5c603c4e4ef93f4fb7a1b6662")
+    version("0.14.0", sha256="ff0e3fa786630b63280606243c35f1ea3a25fa2ba6f08bf9065cab9fcc7fa1c7")
+    version("0.13.1", sha256="cff1decb94089cd0f9c0930b02092838679827b09ce4a2f3a359d59caee28782")
     version("0.13", sha256="9a5a4aa81ceb10e010fbad6c7bb8d39d082fe6e61ed33b2b2d2b056917f401d8")
     version("0.12.1", sha256="ff9d0f8722aff17737cd63f27758314b2ed78e518cd45d1fb9f0e3b7ccbcef50")
     version("0.12", sha256="d9949423d87d74ae20b0e344fdc76cc7e0a62249f219b05297b8f44891f75a8e")
@@ -66,6 +72,7 @@ class MochiMargo(AutotoolsPackage):
     depends_on('automake', type=("build"))
     depends_on('libtool', type=("build"))
     depends_on('pkgconfig', type=("build"))
+    depends_on('coreutils', type=("build"))
     depends_on('argobots@1.0:')
     depends_on('argobots@1.1:', when='@0.11:')
     # "breadcrumb" support not available in mercury-1.0

@@ -22,6 +22,7 @@
 # License along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ##############################################################################
+from spack.package import *
 from spack import *
 
 
@@ -33,7 +34,7 @@ class MochiSdskv(AutotoolsPackage):
     git = "https://github.com/mochi-hpc/mochi-sdskv.git"
 
     version('dev-bedrock', branch='dev-bedrock');
-    version('develop', branch='main', git='https://github.com/srini009/mochi-sdskv.git')
+    version('develop-test', branch='main', git='https://github.com/srini009/mochi-sdskv.git')
     version('main', branch='main')
     version('0.1.14', sha256='0e6aafadd29d93d1828672f30242ba35b77cc44e9c7c6f6b74083d582efab80d')
     version('0.1.13', sha256='998ea87656ee8af135a8ad154b8226464f4ffa46f9a1638c7a6b5a1456320a90')
@@ -54,7 +55,7 @@ class MochiSdskv(AutotoolsPackage):
 
     #Custom SYMBIOMON-related variants
     variant('aggrservice', default=False, description='Compiles an MPI-based SDSKV aggr service')
-    #variant('symbiomon', default=False, description="Enables remote metrics monitoring")
+    variant('symbiomon', default=False, description="Enables remote metrics monitoring")
     variant('benchmark', default=False, description='Compiles a benchmark')
     variant('remi', default=False, description="Enables migration support using REMI")
     variant('bdb', default=True, description="Enable Berkely DB keyval backend")
@@ -70,7 +71,6 @@ class MochiSdskv(AutotoolsPackage):
     depends_on('jsoncpp@1.9.1:')
     depends_on('mpi', when='+benchmark')
     depends_on('mpi', when='+aggrservice')
-    depends_on('mochi-margo@develop', when='+aggrservice @develop')
     depends_on('mochi-margo@0.4:', when='@:0.1.3')
     depends_on('mochi-margo@0.5.2:', when='@0.1.4:')
     depends_on('mochi-abt-io', when='@:0.1.11')

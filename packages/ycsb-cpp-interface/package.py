@@ -3,6 +3,7 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 from spack import *
+from spack.package import *
 
 
 class YcsbCppInterface(CMakePackage):
@@ -17,7 +18,7 @@ class YcsbCppInterface(CMakePackage):
 
     depends_on('cmake@3.15:', type='build')
     depends_on('openjdk', type='build')
-    depends_on('ycsb@0.17.0')
+    depends_on('ycsb@0.17.0:')
 
     def cmake_args(self):
         args = []

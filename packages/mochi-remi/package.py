@@ -1,3 +1,4 @@
+from spack.package import *
 from spack import *
 
 
@@ -12,6 +13,8 @@ class MochiRemi(CMakePackage):
 
     version('develop', branch='main')
     version('main', branch='main')
+    version("0.4.0", sha256="570a16711d26059c4ee60e6cbee9aaf8d3313162469c06ab2b910f40a38dd61b")
+    version("0.3.3", sha256="ad481e282ed2d349a0f19cb082183614426c165ff75b2b9893543991e22fdf59")
     version("0.3.2", sha256="b289c5612316d6e65173004f0ad79e6e9123391ad79c6ac43b9a0b59dd0cf2bf")
     version('0.3.1', tag='v0.3.1')
     version('0.3', tag='v0.3')
@@ -25,6 +28,7 @@ class MochiRemi(CMakePackage):
     variant('bedrock', default=True, description='Enable building Bedrock module')
 
     depends_on('cmake@3.12:', type='build')
+    depends_on('mochi-thallium@0.12.0:+cereal', when='@0.4.0:')
     depends_on('mochi-thallium@0.6.0:+cereal', when='@0.2.3:')
     depends_on('mochi-thallium@0.4.2:', when='@0.2.2')
     depends_on('mochi-thallium@0.3:', when='@:0.2.1')

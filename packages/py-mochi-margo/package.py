@@ -27,6 +27,7 @@
 #
 #     spack install py-margo
 #
+from spack.package import *
 from spack import *
 
 
@@ -58,6 +59,7 @@ class PyMochiMargo(PythonPackage):
     depends_on('py-setuptools', type=('build'))
     depends_on('py-pkgconfig', type=('build'))
     depends_on('py-pybind11', type=('build'))
+    depends_on('py-pybind11@:2.10.4', type=('build'), when='@:0.5.2')
 
     depends_on('mochi-margo@0.6:', when='@0.3:')
     depends_on('mochi-margo@0.4:')

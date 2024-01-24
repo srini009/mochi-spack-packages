@@ -27,6 +27,7 @@
 #
 #     spack install py-bake
 #
+from spack.package import *
 from spack import *
 
 class PyMochiBake(PythonPackage):
@@ -49,6 +50,7 @@ class PyMochiBake(PythonPackage):
     variant('numpy', default=False, description="Enables Numpy support")
 
     depends_on('py-pybind11', type=('build'))
+    depends_on('py-pybind11@:2.10.4', type=('build'), when='@:0.6')
     depends_on('py-setuptools', type=('build'))
     depends_on('py-pkgconfig', type=('build'))
 

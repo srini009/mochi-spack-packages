@@ -22,6 +22,7 @@
 # License along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ##############################################################################
+from spack.package import *
 from spack import *
 
 
@@ -32,6 +33,7 @@ class Hepnos(CMakePackage):
     url = "https://github.com/hepnos/HEPnOS/archive/v0.4.2.tar.gz"
     git = "https://github.com/hepnos/HEPnOS.git"
 
+    version("0.7.2", sha256="9df62d579211732d404dc49c4dc6631a4fed2b91d59c0b843912b20c6510337e")
     version("0.7.1", sha256="e027ac391f2d70bcbe4b6e0a1384c7451c29f44a3d02e5a4543102ef7f7c7c64")
     version("0.7", sha256="1ab1f4974e25a722e42fdfc551290edf0bfea83557a29f620e4d3ac7f0fa6cdc")
     version("0.6.13", sha256="b824952982563f5c9f342e9d9efb5bc701984b0dba25ffe498bc9d5be7386d80")
@@ -94,13 +96,13 @@ class Hepnos(CMakePackage):
     depends_on('mochi-ch-placement@0.1:')
     depends_on('mochi-thallium+cereal@0.5.2:', when='@0.2.0:')
     depends_on('mochi-bedrock+mpi', when='@0.5:')
-    depends_on('mochi-yokan+bedrock@0.2.1:', when='@0.6:')
+    depends_on('mochi-yokan+bedrock@0.2.1:0.3.0', when='@0.6:')
     # ---------------------------------------------
     # Dependencies for develop version
     # ---------------------------------------------
     depends_on('mochi-ch-placement@develop', when='@develop')
     depends_on('mochi-thallium@develop', when='@develop')
-    depends_on('mochi-yokan+bedrock@develop', when='@develop')
+    depends_on('mochi-yokan+bedrock@:0.3.0', when='@develop')
     depends_on('mochi-bedrock+mpi@develop', when='@develop')
     # ---------------------------------------------
     # Old dependencies

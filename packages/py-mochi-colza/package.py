@@ -22,6 +22,7 @@
 # License along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ##############################################################################
+from spack.package import *
 from spack import *
 
 
@@ -42,7 +43,7 @@ class PyMochiColza(PythonPackage):
     depends_on('py-numpy')
     depends_on('py-mochi-margo')
     depends_on('py-mochi-ssg@main')
-    depends_on('mochi-colza@main')
+    depends_on('mochi-colza')
     depends_on('mpi')
 
     def setup_build_environment(self, env):
